@@ -22,7 +22,6 @@ include .\src\addin\export.prg
 ' Load data
 include .\src\data\load_calibration
 include .\src\data\load_data_shocks
-include .\src\data\load_data_hybrid
 include .\src\data\load_data_realist
 
 ' Running the model
@@ -48,3 +47,5 @@ For %DC {%calibrations}
   Next
 
 Next
+
+
