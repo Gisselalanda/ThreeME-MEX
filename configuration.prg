@@ -17,15 +17,15 @@
 %calibrations = " MEX" 
 
 ' Shocks to run, filenames are space-separated and found inside data\shocks
-' Example: to run the VATMES, TCO2 and CSEMES shocks, use "VATMES TCO2 CSEMES"
-%shocks = "SCENARIO_1B"
+' Example: to run the IAPU shock, use "IAPU"
+%shocks = "IAPU"
 
 ' Set "realist" for simulating a realistic reference scenario; something else for a stationary  reference scenario
 ' in a realist version model run until 2090. Track_objectif find a solution until this date'
 %ref = ""
 
 ' Set "yes" for running shock scenario (mitigation scenario)
-%run_shock = ""
+%run_shock = "standard"
 
 ' List of model blocks to be run
 %list_block = "Other"
