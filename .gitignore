@@ -1,0 +1,12 @@
+
+*.wf1
+
+*.~f1
+
+*.wf1
+
+a_3ME_MEX_SCENARIO_1B.wf1
+
+*.csv
+
+src/addin/_tmp_all_vars.csv
