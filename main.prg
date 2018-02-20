@@ -23,6 +23,7 @@ include .\src\addin\export.prg
 include .\src\data\load_calibration
 include .\src\data\load_data_shocks
 include .\src\data\load_data_realist
+include .\src\data\standard_shocks
 
 ' Running the model
 include .\src\model\jacobian.prg
