@@ -42,7 +42,7 @@ if %load="new"  then
 
     ' Create the series using the dependencies (add-ins "series")
     {%modelname}.series round1 round2 demography government household Mex_exceptions ghg carbon_tax prices
-'stop
+
     if %hybrid_household="yes"  then 'Load if "yes" in the main
       call load_data_hybrid
     endif
@@ -70,7 +70,7 @@ if %load="new"  then
 
    ' If the data are already initailized as a Workfile with the option  %load = ""
    ' Load the data
-    wfopen {%wfname}    ' Load workfile if already created
+   wfopen {%wfname}    ' Load workfile if already created
 endif
 
   smpl @all
@@ -88,7 +88,13 @@ endif
 
     !scenario = 1
 
+' ***************************************
+' Just run the baseline if not shock at all
+  if %run_shock = "" then
+
+    ' Run the baseline scenario
     call run_scenario("baseline")
+
 '================================================================================
 
     '************************************'
@@ -102,15 +108,34 @@ endif
     'call load_data_shocks(".\..\..\data\shocks\Objectives_gdp.xls")
     'call track_objectives(objectives_gdp, "GDP", "ADD_EXPORTS ADD_EXPG", "0.7 0.3")
     'call load_data_shocks(".\..\..\data\shocks\Target_track.xls")
-    'call solve_for_target("ADD_EXPORTS ADD_EXPG ADD_IMPORTS", "GDP M X", 2008, 2050)  
+    'call solve_for_target("ADD_EXPORTS ADD_EXPG ADD_IMPORTS", "GDP M X", 2008, 2050)   
 
 '================================================================================  
+ endif
 
-    ' Run the shock scenario if requested
+ ' ***************************************
+  ' Run the shock scenario if requested
 
-    if %run_shock="yes" then
-     call run_scenario("shock")
-    endif
+  if %run_shock="yes" then   
+
+   ' Run the baseline scenario
+    call run_scenario("baseline")
+
+    call run_scenario("shock")
+  endif
+
+ ' ***************************************
+' Run the standar shock scenarios if requested (shock have prepared in standard_shocks.prg)
+
+   if %run_shock ="standard" then
+
+      wfopen {%wfname}
+
+    ' Run the baseline scenario
+     call run_scenario("baseline")
+
+     call run_standard("IAPU") 
+  endif
 
   ' ***************************************
   ' Call (eventually) here the subroutine you want to use to analyse the results
@@ -145,12 +170,12 @@ endif
 endsub
 
 ' ============================================================================ 
+' ************************************************
+
 ' +++++++++++++++++++++++++++
 ' Subroutine "run_scenario"
 ' +++++++++++++++++++++++++++
 
-
-' ************************************************
 ' This subroutine runs an individual scenario, baseline or shock
 ' Pass in "baseline" as the %scenario_name for the baseline scenario
 
@@ -182,12 +207,41 @@ endif
 
    call solvemodel(%solveopt)
 
-  {%modelname}.makegroup(t=pcha) a_shock_var_endo @endog
-  {%modelname}.makegroup(t=pcha) a_shock_var_addfactors @addfactor
-  {%modelname}.makegroup(t=pcha) a_shock_var_exo @exog
+endsub
+
+' ************************************************
+
+' +++++++++++++++++++++++++++
+' Subroutine "run_standard"
+' +++++++++++++++++++++++++++
+
+subroutine run_standard(string %scenario_list)
+
+  call standard_backup
+
+  for %scenario {%scenario_list}
+    %index = @str(@wfind(%scenario_list, %scenario))
+    %scenario_name = "Scenario" + %scenario
+    {%modelname}.scenario(n, a="1") %scenario_name
+    call standard_shock(%scenario)
+    call solvemodel(%solveopt)
+    %grp = "Results" + %scenario
+    'call standard_outputs(%grp, %index)
+    
+    'call output_template(%scenario_name)
+    {%modelname}.scenario(d) %scenario_name
+  next
+
+  ' Output to Excel
+  '%path = @addquotes(@linepath + "..\..\results\results.vbs")
+  'shell(h) {%path}
+
+endsub
+
+' ************************************************
 
 ''  call create_seriesresults(%graphopt)
-  call graph(%graphopt)   ' Call GRAPH subroutine
-  call tables(%tabopt)    ' Call TABLES subroutine
+  'call graph(%graphopt)   ' Call GRAPH subroutine
+ '' call tables(%tabopt)    ' Call TABLES subroutine
 
-endsub   
+   
