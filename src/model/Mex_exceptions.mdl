@@ -18,11 +18,9 @@
 REC_VAL = DIV_GOV_VAL + IR_VAL + AIC_VAL + INC_GOV_OTH_net - CL_S[sp] * L_S[sp] * PROG_L[sp] - CL_SE[sp] * L_SE[sp] * PROG_L[sp] + _
           value(Y[sp] + TAX + IY + IS + CSE_TOT + CSS_TOT - (E[sp] + MAT[sp] + IY[sp]))
 
-#d(log(TRANS_GOV_VAL)) = d(log(TRANS_VAL_trend + ADD_TRANS_VAL)) 
-
 # Total spending
 # equation 3.79
-DEP_VAL = CL_S[sp]*L_S[sp]*PROG_L[sp] + CL_SE[sp]*L_SE[sp]*PROG_L[sp]+ R_G{-1}*DEBT_G_VAL{-1} +  PRESOC_VAL + TRANS_GOV_VAL + _
+DEP_VAL = CL_S[sp]*L_S[sp]*PROG_L[sp] + CL_SE[sp]*L_SE[sp]*PROG_L[sp]+ R_G{-1}*DEBT_G_VAL{-1} +  PRESOC_VAL +  _
           value(E[sp] + MAT[sp] + IY[sp] + IA[sp] + (G - G[cp]) - (SUB  + SY))
 
 # Substitution for transport margins

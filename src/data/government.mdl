@@ -5,7 +5,6 @@ EXPG := sum(EXPG[c] on c)
 EXPG_n := EXPG
 EXPG_e := EXPG
 EXPG_trend := EXPG
-TRANS_VAL_trend := TRANS_GOV_VAL
 R_n := R
 R_e := R
 

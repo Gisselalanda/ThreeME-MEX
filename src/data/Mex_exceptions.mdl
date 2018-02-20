@@ -3,7 +3,7 @@ REC_VAL := DIV_GOV_VAL + IR_VAL + AIC_VAL + INC_GOV_OTH_net - CL_S[sp]*L_S[sp]*P
           value(Y[sp] + TAX + IY + IS + CSE_TOT + CSS_TOT - (E[sp] + MAT[sp] + IY[sp]))        
 
 
-R_G := @elem( (DEP_VAL - (PRESOC_VAL + CL_S[sp]*L_S[sp]*PROG_L[sp] + CL_SE[sp]*L_SE[sp]*PROG_L[sp] + TRANS_GOV_VAL + _  
+R_G := @elem( (DEP_VAL - (PRESOC_VAL + CL_S[sp]*L_S[sp]*PROG_L[sp] + CL_SE[sp]*L_SE[sp]*PROG_L[sp] + _  
                value(E[sp] + MAT[sp] + IY[sp] + (G - G[cp]) - (SUB  + SY)) + IA[sp])) / DEBT_G_VAL{-1}, %baseyear)
 
 Tvat|O|[c] := if(CH|O|[c] <> 0, VAT|O|_HSH[c] / (CH|O|[c] - VAT|O|_HSH[c]), 0)

@@ -352,6 +352,5 @@ subroutine load_calibration
   next
 
   call create_series("DEBT_G_VAL",STEADYSTATE(1,1),OTH_VARIABLE(7,1))
-  call create_series("INC_GOV_OTH_net",STEADYSTATE(1,1),OTH_VARIABLE(4,1))
-  call create_series("TRANS_GOV_VAL",STEADYSTATE(1,1),OTH_VARIABLE(10,1))
+  call create_series("INC_GOV_OTH_net",STEADYSTATE(1,1),OTH_VARIABLE(4,1))  
 endsub
